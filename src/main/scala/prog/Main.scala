@@ -1,17 +1,13 @@
 package prog
 
-import prog.InterpolationMethods.Lagrange
+import prog.InterpolationMethods.{Lagrange, NewtonPolynomial}
 
 import scala.io.StdIn
 
 object Main {
-
-  var array: IndexedSeq[(Double, Double)] = IndexedSeq[(Double, Double)]()
-  val x1: Double = 0.502
-  val x2: Double = 0.745
-  var x: Double = 0.0
-
   def main(args: Array[String]): Unit = {
+    var array: IndexedSeq[(Double, Double)] = IndexedSeq[(Double, Double)]()
+    var x: Double = 0.0
     println(
       """ Вариант №2
         | Заданне таблицей точки
@@ -26,12 +22,8 @@ object Main {
       array = ConsoleHandler.inputHandler(StdIn.readLine())
       println("Выберите точку для интерполяции: ")
       x = ConsoleHandler.inputPointHandler(StdIn.readLine())
-
-      // do magic & all other stuff
-      // todo: write Lagrange interpolation
       println(s"\nЛагранж = ${Lagrange.solve(array, x)}")
-      // todo: write Newton interpolation
-
+      println(s"\nНьютона с конечными разностями = ${NewtonPolynomial.solve(array, x)}")
     }
   }
 }
