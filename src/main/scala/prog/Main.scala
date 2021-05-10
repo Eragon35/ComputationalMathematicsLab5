@@ -24,6 +24,7 @@ object Main {
       x = ConsoleHandler.inputPointHandler(StdIn.readLine())
       println(s"\nЛагранж = ${Lagrange.solve(array, x)}")
       println(s"\nНьютона с конечными разностями = ${NewtonPolynomial.solve(array, x)}")
+      Graph.show(array)
     }
   }
 }

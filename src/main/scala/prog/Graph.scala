@@ -1,19 +1,27 @@
 package prog
 
-import prog.ApproximationMethods.Approximation
+import prog.InterpolationMethods.{Lagrange, NewtonPolynomial}
 import scalax.chart.module.Charting._
 
-import scala.collection.immutable
-import scala.collection.mutable.ArrayBuffer
-
 object Graph {
-  def show(map: immutable.SortedMap[Double, Double], results: ArrayBuffer[Approximation]): Unit = {
+  def show(points: IndexedSeq[(Double, Double)]): Unit = {
     var dataset = Seq(
-      ("Выбранная функция", for ((x, y) <- map) yield (x, y)),
-      ("y = 0", for ((x, _) <- map) yield (x, 0.0))
+      ("Выбранная функция", points),
+      ("y = 0", for (x <- points) yield (x._1, 0.0))
     )
-//    for (result <- results) dataset = dataset :+ (result.toString, for ((x, _) <- map) yield (x, result.func(x)))
-    results.foreach(result => dataset = dataset :+ (result.toString, for ((x, _) <- map) yield (x, result.func(x))))
+    var lagrange = IndexedSeq[(Double, Double)]()
+    var newton = IndexedSeq[(Double, Double)]()
+    for (i <- points.indices) {
+      val x = points(i)._1
+      lagrange = lagrange :+ (x, Lagrange.solve(points, x))
+      newton = newton :+ (x, NewtonPolynomial.solve(points, x))
+      if (x != points.last._1) {
+        val nextX = (points(i + 1)._1 + x) / 2
+        lagrange = lagrange :+ (nextX, Lagrange.solve(points, nextX))
+        newton = newton :+ (nextX, NewtonPolynomial.solve(points, nextX))
+      }
+    }
+    dataset = dataset ++ Seq(("Многочлен Лагранжа", lagrange),("Многочлен Ньютона с конечными разностями", newton))
     XYLineChart(dataset.toXYSeriesCollection()).show("График функции", (1280, 720), scrollable = true)
   }
 }
