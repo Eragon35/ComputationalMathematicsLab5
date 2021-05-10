@@ -57,6 +57,7 @@ object ConsoleHandler {
   }
 
 
+  // todo: check if agreeHandler is needed
   def agreeHandler(line: String): Boolean = {
     line.trim.toLowerCase match {
       case "da" | "yes" | "y" | "+" | "true" | "да" => true

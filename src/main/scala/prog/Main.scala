@@ -1,5 +1,7 @@
 package prog
 
+import prog.InterpolationMethods.Lagrange
+
 import scala.io.StdIn
 
 object Main {
@@ -12,7 +14,7 @@ object Main {
   def main(args: Array[String]): Unit = {
     println(
       """ Вариант №2
-        | Заданная функция a: по точкам заданным таблицой
+        | Заданне таблицей точки
         | Функция b: x - 2
         | Функция c: cos(x)
         | Функция d: 1,38x^3 − 5,42x^2 + 2,57x + 10,95""".stripMargin)
@@ -26,6 +28,9 @@ object Main {
       x = ConsoleHandler.inputPointHandler(StdIn.readLine())
 
       // do magic & all other stuff
+      // todo: write Lagrange interpolation
+      println(s"\nЛагранж = ${Lagrange.solve(array, x)}")
+      // todo: write Newton interpolation
 
     }
   }
