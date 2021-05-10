@@ -30,14 +30,21 @@ object ConsoleHandler {
   private def third(x: Double): Double = Math.cos(x)
   private def forth(x: Double): Double = 1.38 * Math.pow(x, 3) - 5.42 * Math.pow(x, 2) + 2.57 * x + 10.95
 
+  @tailrec
   private def chooseRange(func: Double => Double): IndexedSeq[(Double, Double)] = {
     println("Выберите диапазон для генерации точек функцией")
-    val line = StdIn.readLine().trim.replaceAll(",", ".").split(" ").map(x => x.toDouble)
-    left = line(0)
-    right = line(1)
-    var array = IndexedSeq[(Double, Double)]()
-    for (i <- left to right by (right-left)/7) array = array :+ (i, func(i))
-    array
+    try {
+      val line = StdIn.readLine().trim.replaceAll(",", ".").split(" ").map(x => x.toDouble)
+      left = line(0)
+      right = line(1)
+      var array = IndexedSeq[(Double, Double)]()
+      for (i <- left to right by (right-left)/data.size) array = array :+ (i, func(i))
+      array
+    }
+    catch {
+      case e: Exception => Console.err.println(e + "\nДавай по новой, Миша все х*йня")
+        chooseRange(func)
+    }
   }
 
   @tailrec
@@ -45,23 +52,11 @@ object ConsoleHandler {
     try {
       val value = line.trim.replaceAll(",", ".").toDouble
       if (value > left && value < right) value
-      else {
-        Console.err.println("Значение должно быть между границами введённого диапазона")
-        throw new IllegalArgumentException("")
-      }
+      else throw new IllegalArgumentException("Значение должно быть между границами введённого диапазона")
     }
     catch {
-      case _: Exception => Console.err.println("Давай по новой, Миша все х*йня")
+      case e: Exception => Console.err.println(e + "\nДавай по новой, Миша все х*йня")
         inputPointHandler(StdIn.readLine())
-    }
-  }
-
-
-  // todo: check if agreeHandler is needed
-  def agreeHandler(line: String): Boolean = {
-    line.trim.toLowerCase match {
-      case "da" | "yes" | "y" | "+" | "true" | "да" => true
-      case _ => false
     }
   }
 }
