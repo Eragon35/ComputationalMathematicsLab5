@@ -22,8 +22,8 @@ object Main {
       array = ConsoleHandler.inputHandler(StdIn.readLine())
       println("Выберите точку для интерполяции: ")
       x = ConsoleHandler.inputPointHandler(StdIn.readLine())
-      println(s"\nЛагранж = ${Lagrange.solve(array, x)}")
-      println(s"\nНьютона с конечными разностями = ${NewtonPolynomial.solve(array, x)}")
+      println(s"Лагранж = ${Lagrange.solve(array, x)}")
+      println(s"Ньютона с конечными разностями = ${NewtonPolynomial.solve(array, x)}")
       Graph.show(array)
     }
   }

@@ -7,7 +7,8 @@ import scala.io.StdIn
 object ConsoleHandler {
   private var left: Double = 0.0
   private var right: Double = 0.0
-  private val data = IndexedSeq((0.5, 1.532), (0.55, 2.5356), (0.6, 3.5406), (0.65, 4.5462), (0.7, 5.5504), (0.75, 6.5559), (0.8, 7.5594))
+//  private val data = IndexedSeq((0.5, 1.532), (0.55, 2.5356), (0.6, 3.5406), (0.65, 4.5462), (0.7, 5.5504), (0.75, 6.5559), (0.8, 7.5594))
+  private val data = IndexedSeq((0.1, 1.25), (0.2, 2.38), (0.3, 3.79), (0.4, 5.44), (0.5, 7.14))
   @tailrec
   def inputHandler(line: String): IndexedSeq[(Double, Double)] = {
     line.trim.toLowerCase match {

@@ -14,13 +14,15 @@ object Graph {
     for (i <- points.indices) {
       val x = points(i)._1
       lagrange = lagrange :+ (x, Lagrange.solve(points, x))
-      newton = newton :+ (x, NewtonPolynomial.solve(points, x))
+//      newton = newton :+ (x, NewtonPolynomial.solve(points, x))
       if (x != points.last._1) {
         val nextX = (points(i + 1)._1 + x) / 2
         lagrange = lagrange :+ (nextX, Lagrange.solve(points, nextX))
         newton = newton :+ (nextX, NewtonPolynomial.solve(points, nextX))
       }
     }
+    // show x - y table
+//    lagrange.foreach(f => println(s"${f._1} ${f._2}"))
     dataset = dataset ++ Seq(("Многочлен Лагранжа", lagrange),("Многочлен Ньютона с конечными разностями", newton))
     XYLineChart(dataset.toXYSeriesCollection()).show("График функции", (1280, 720), scrollable = true)
   }
