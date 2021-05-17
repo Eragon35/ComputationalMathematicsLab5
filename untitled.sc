@@ -13,3 +13,12 @@ def factorial(limit: Int,curr: Int = 2, ans: Long = 1): Long = {
 factorial(0)
 
 Math.pow(1.4, 0)
+
+val data = IndexedSeq((0.1, 1.25), (0.2, 2.38), (0.3, 3.79), (0.4, 5.44), (0.5, 7.14))
+
+data.drop(2)
+
+for (i <- 0 until 1) println("super")
+
+val arr = data.map(x => x._2)
+val mediana = (arr(arr.length / 2) + arr.reverse(arr.length / 2))/ 2
